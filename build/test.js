@@ -210,7 +210,7 @@ module.exports = [
     // Mention of facial hair
     {
         name: 'Mention of facial hair',
-        reason: 'The use of "grizzled" or "bearded" indicates that you\'re only looking for male developers.',
+        reason: 'The use of "grizzled" or "bearded" indicates that you\'re only looking for male employees.',
         solution: 'Remove these words.',
         level: 'error',
         increment: {
@@ -267,7 +267,7 @@ module.exports = [
     // Use of dumb job titles
     {
         name: 'Use of dumb job titles',
-        reason: 'Referring to tech people as Ninjas or similar devalues the work that they do and shows a lack of respect and professionalism. It\'s also rather cliched and can be an immediate turn-off to many people.',
+        reason: 'Referring to people as ninjas or similar devalues the work that they do and shows a lack of respect and professionalism. It\'s also rather cliched and can be an immediate turn-off to many people.',
         solution: 'Consider what you\'re really asking for in an applicant and articulate this in the job post.',
         level: 'warning',
         increment: {
@@ -394,10 +394,12 @@ module.exports = [
             'bugger',
             'cunt',
             'damn',
-            'fuck(er|ing)?',
+            'fuck(er|ing|ed|s)?',
             'piss(ing)?',
             'shit',
-            'motherfuck(ers?|ing)'
+            'motherfuck(ers?|ing)',
+            'tits?',
+            'blowjob'
         ]
     },
 
@@ -405,7 +407,7 @@ module.exports = [
     // Use of "visionary" terminology
     {
         name: 'Use of "visionary" terminology',
-        reason: 'Terms like "blue sky" and "enlightened" often indicate that a non technical person (perhaps a CEO or stakeholder) has been involved in writing the post. Be down-to-earth, and explain things in plain English.',
+        reason: 'Terms like "blue sky" and "enlightened" often indicate that a higher-up (perhaps a CEO or stakeholder) has been involved in writing the post. Be down-to-earth, and explain things in plain English.',
         solution: 'Reword these phrases, say what you actually mean.',
         level: 'warning',
         increment: {
@@ -3596,8 +3598,12 @@ var sinon = (function () { // eslint-disable-line no-unused-vars
             },
 
             toString: function () {
-                var callStr = this.proxy.toString() + "(";
+                var callStr = this.proxy ? this.proxy.toString() + "(" : "";
                 var args = [];
+
+                if (!this.args) {
+                    return ":(";
+                }
 
                 for (var i = 0, l = this.args.length; i < l; ++i) {
                     args.push(sinon.format(this.args[i]));
@@ -7010,8 +7016,24 @@ if (typeof sinon === "undefined") {
 /**
  * Fake XDomainRequest object
  */
+
+/**
+ * Returns the global to prevent assigning values to 'this' when this is undefined.
+ * This can occur when files are interpreted by node in strict mode.
+ * @private
+ */
+function getGlobal() {
+    "use strict";
+
+    return typeof window !== "undefined" ? window : global;
+}
+
 if (typeof sinon === "undefined") {
-    this.sinon = {};
+    if (typeof this === "undefined") {
+        getGlobal().sinon = {};
+    } else {
+        this.sinon = {};
+    }
 }
 
 // wrapper for global
