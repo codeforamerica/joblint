@@ -539,6 +539,26 @@ module.exports = [
         triggers: [
             'ruby on rail'
         ]
+    },
+
+
+    // Preferred vs. required qualifications
+    {
+        name: 'Preferred qualifications',
+        reason: 'Specifying preferred qualifications can often be interpreted as a requirement and dissuades candidates who potentially meet the core requirements.',
+        solution: "Consider if these are hard requirements or nice to haves. If they aren\'t critical to the job posting it may be worth omitting them.",
+        level: 'warning',
+        increment: {
+            recruiter: 1,
+            realism: 1
+        },
+        triggers: [
+            'preferred qualifications?', 
+            'preferred education', 
+            'preferred experience',
+            'degree preferred', 
+            'nice to haves?'
+        ]
     }
 
 ];
