@@ -231,7 +231,8 @@ module.exports = [
         solution: 'Remove these words.',
         level: 'warning',
         increment: {
-            culture: 1
+            culture: 1,
+            sexism: 1
         },
         triggers: [
             'gay for',
@@ -388,7 +389,8 @@ module.exports = [
         solution: 'Remove these words.',
         level: 'warning',
         increment: {
-            recruiter: 1
+            recruiter: 1,
+            realism: 1
         },
         triggers: [
             'bloody',
@@ -436,7 +438,8 @@ module.exports = [
         solution: 'Reassess the need for these phrases.',
         level: 'notice',
         increment: {
-            culture: 1
+            culture: 1,
+            realism: 1
         },
         triggers: [
             'drama[ -]*free',
@@ -452,7 +455,6 @@ module.exports = [
         solution: 'If possible (and you\'re being honest), play down the use of this technology.',
         level: 'notice',
         increment: {
-            realism: 1,
             tech: 1
         },
         triggers: [
@@ -554,10 +556,10 @@ module.exports = [
             realism: 1
         },
         triggers: [
-            'preferred qualifications?', 
-            'preferred education', 
+            'preferred qualifications?',
+            'preferred education',
             'preferred experience',
-            'degree preferred', 
+            'degree preferred',
             'nice to haves?'
         ]
     }
