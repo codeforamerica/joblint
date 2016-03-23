@@ -198,9 +198,9 @@ The `results` object that gets returned looks like this:
             increment: {
                 foo: Number // The amount that each count has been incremented
             },
-            occurance: String, // The exact occurance of the trigger
+            occurrence: String, // The exact occurrence of the trigger
             position: Number, // The position of the trigger in the input text
-            context: String // The text directly around the trigger with the trigger replaced by "{{occurance}}"
+            context: String // The text directly around the trigger with the trigger replaced by "{{occurrence}}"
         }
 
     ]
