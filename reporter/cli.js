@@ -62,7 +62,7 @@ function reportIssue (issue) {
     );
     console.log(
         ' ',
-        issue.context.replace('{{occurance}}', chalk.white.bold.bgRed(issue.occurance))
+        issue.context.replace('{{occurrence}}', chalk.white.bold.bgRed(issue.occurrence))
     );
     console.log(chalk.grey(wrap(chalk.green('✔ ') + issue.solution)));
     console.log(chalk.grey(wrap(chalk.red('✘ ') + issue.reason)));

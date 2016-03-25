@@ -65,16 +65,16 @@ function buildIssueFromMatch (match, rule) {
         solution: rule.solution,
         level: rule.level,
         increment: rule.increment,
-        occurance: match[1],
+        occurrence: match[1],
         position: match.index
     };
-    issue.context = buildIssueContext(match.input, issue.occurance, issue.position);
+    issue.context = buildIssueContext(match.input, issue.occurrence, issue.position);
     return issue;
 }
 
-function buildIssueContext (input, occurance, position) {
+function buildIssueContext (input, occurrence, position) {
 
-    var context = '{{occurance}}';
+    var context = '{{occurrence}}';
 
     input
         .substr(0, position)
@@ -93,7 +93,7 @@ function buildIssueContext (input, occurance, position) {
         });
 
     input
-        .substr(position + occurance.length)
+        .substr(position + occurrence.length)
         .split(/[\r\n]+/)
         .shift()
         .replace(/\s+/g, ' ')
@@ -8851,16 +8851,16 @@ describe('lib/joblint', function () {
                 assert.isUndefined(result.issues[0].triggers);
             });
 
-            it('should include the exact occurance of the trigger word', function () {
+            it('should include the exact occurrence of the trigger word', function () {
                 options.rules.push({
                     triggers: [
                         'he|his'
                     ]
                 });
                 var result = joblint('He should have HIS head screwed on if he wants this job', options);
-                assert.strictEqual(result.issues[0].occurance, 'He');
-                assert.strictEqual(result.issues[1].occurance, 'HIS');
-                assert.strictEqual(result.issues[2].occurance, 'he');
+                assert.strictEqual(result.issues[0].occurrence, 'He');
+                assert.strictEqual(result.issues[1].occurrence, 'HIS');
+                assert.strictEqual(result.issues[2].occurrence, 'he');
             });
 
             it('should include the the position of the trigger word in the input text', function () {
@@ -8886,8 +8886,8 @@ describe('lib/joblint', function () {
                     ]
                 });
                 var result = joblint('How much is that doggie in the window? The one with the waggly tail. How much is that doggie in the window? I do hope that doggie\'s for sale.', options);
-                assert.strictEqual(result.issues[0].context, '…that doggie in the {{occurance}}? The one with the…');
-                assert.strictEqual(result.issues[1].context, '…that doggie in the {{occurance}}? I do hope that doggie\'s…');
+                assert.strictEqual(result.issues[0].context, '…that doggie in the {{occurrence}}? The one with the…');
+                assert.strictEqual(result.issues[1].context, '…that doggie in the {{occurrence}}? I do hope that doggie\'s…');
             });
 
             it('should not include line-breaks in the context', function () {
@@ -8897,10 +8897,10 @@ describe('lib/joblint', function () {
                     ]
                 });
                 var result = joblint('How much is that doggie in the window?\nThe one with the waggly tail.\nHow much is that doggie in the window?\nI do hope that doggie\'s for sale.', options);
-                assert.strictEqual(result.issues[0].context, 'How {{occurance}} is that doggie in the window?');
-                assert.strictEqual(result.issues[1].context, '…that doggie in the {{occurance}}?');
-                assert.strictEqual(result.issues[2].context, 'How {{occurance}} is that doggie in the window?');
-                assert.strictEqual(result.issues[3].context, '…that doggie in the {{occurance}}?');
+                assert.strictEqual(result.issues[0].context, 'How {{occurrence}} is that doggie in the window?');
+                assert.strictEqual(result.issues[1].context, '…that doggie in the {{occurrence}}?');
+                assert.strictEqual(result.issues[2].context, 'How {{occurrence}} is that doggie in the window?');
+                assert.strictEqual(result.issues[3].context, '…that doggie in the {{occurrence}}?');
             });
 
             it('should add ellipses to the context if there are more words either side on the line', function () {
@@ -8910,10 +8910,10 @@ describe('lib/joblint', function () {
                     ]
                 });
                 var result = joblint('This is a longish line with trigger roughly in the middle so that we get ellipses.\nThis trigger is at the beginning of a longish line.\nThis is a longish line which has the trigger near the end.\nShort trigger line.', options);
-                assert.strictEqual(result.issues[0].context, '…longish line with {{occurance}} roughly in the middle…');
-                assert.strictEqual(result.issues[1].context, 'This {{occurance}} is at the beginning of a longish…');
-                assert.strictEqual(result.issues[2].context, '…line which has the {{occurance}} near the end.');
-                assert.strictEqual(result.issues[3].context, 'Short {{occurance}} line.');
+                assert.strictEqual(result.issues[0].context, '…longish line with {{occurrence}} roughly in the middle…');
+                assert.strictEqual(result.issues[1].context, 'This {{occurrence}} is at the beginning of a longish…');
+                assert.strictEqual(result.issues[2].context, '…line which has the {{occurrence}} near the end.');
+                assert.strictEqual(result.issues[3].context, 'Short {{occurrence}} line.');
             });
 
         });
